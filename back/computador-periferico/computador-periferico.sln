@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "computador-periferico", "computador-periferico\computador-periferico.csproj", "{BFA9C2DE-2612-4C9D-9057-0F3D26F8F1AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFA9C2DE-2612-4C9D-9057-0F3D26F8F1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFA9C2DE-2612-4C9D-9057-0F3D26F8F1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFA9C2DE-2612-4C9D-9057-0F3D26F8F1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFA9C2DE-2612-4C9D-9057-0F3D26F8F1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC2E6CD8-542A-48FC-B374-8D4882B1924A}
+	EndGlobalSection
+EndGlobal

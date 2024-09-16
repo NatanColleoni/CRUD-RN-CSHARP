@@ -1,0 +1,6 @@
+@computador_periferico_HostAddress = http://localhost:5098
+
+GET {{computador_periferico_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
