@@ -1,8 +1,8 @@
 using computador_periferico.Data;
 using computador_periferico.Data.Entidades;
 using computador_periferico.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ComputadorDbContext>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -22,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.MapGet("/computadores", async (ComputadorDbContext context) =>
 {
@@ -37,9 +47,9 @@ app.MapGet("/computadores/{id}", async (int id, ComputadorDbContext context) =>
     return Results.Ok(computador);
 }).WithName("Consultar Computador");
 
-app.MapPost("/computadores", async (CriarComputadorDto dto, ComputadorDbContext context) =>
+app.MapPost("/computadores", async ([FromBody] CriarComputadorDto dto, ComputadorDbContext context) =>
 {
-    if(dto.Perifericos.Count <= 0)
+    if(dto.perifericos.Count <= 0)
     {
         return Results.BadRequest(new
         {
@@ -49,16 +59,16 @@ app.MapPost("/computadores", async (CriarComputadorDto dto, ComputadorDbContext 
 
     var novoComputador = new Computador
     {
-        Nome = dto.Nome,
-        Cor = dto.Cor,
-        DataFabricacao = dto.DataFabricacao,
+        Nome = dto.nome,
+        Cor = dto.cor,
+        DataFabricacao = dto.dataFabricacao,
     };
 
-    foreach(var periferico in dto.Perifericos)
+    foreach(var periferico in dto.perifericos)
     {
         novoComputador.AddPeriferico(new Periferico
         {
-            Nome = periferico.Nome
+            Nome = periferico.nome
         });
     }
 
@@ -90,7 +100,7 @@ app.MapPut("/computadores/{id}", async (int id, EditarComputadorDto dto,  Comput
     {
         computador.AddPeriferico(new Periferico
         {
-            Nome = periferico.Nome
+            Nome = periferico.nome
         });   
     }
 
@@ -101,7 +111,7 @@ app.MapPut("/computadores/{id}", async (int id, EditarComputadorDto dto,  Comput
     return Results.Ok(computador);
 }).WithName("Editar Computador");
 
-app.MapDelete("/computadores/{id}", async (int id, ComputadorDbContext context) =>
+app.MapDelete("/computadores/{id}", async ([FromRoute] int id, ComputadorDbContext context) =>
 {
     var computador = await context.Computadores.Where(x => x.Id == id).FirstOrDefaultAsync();
 
