@@ -23,7 +23,11 @@ export default function App() {
       nome: nome,
       cor: cor,
       dataFabricacao: '2024-09-17',
-      perifericos: perifericos
+      perifericos: perifericos.map(periferico => {
+        return {
+          nome: periferico
+        }
+      })
     };
     await new ComputadorService().createComputador(computadorDto)
     const novaListaComputadores = await new ComputadorService().getAllComputadores();
